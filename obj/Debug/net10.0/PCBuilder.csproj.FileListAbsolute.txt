@@ -1,0 +1,10 @@
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.csproj.AssemblyReference.cache
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.AssemblyInfoInputs.cache
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.AssemblyInfo.cs
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.csproj.CoreCompileInputs.cache
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.RazorAssemblyInfo.cache
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.RazorAssemblyInfo.cs
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.sourcelink.json

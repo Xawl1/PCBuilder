@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sanda\\Desktop\\PCBuilder\\PCBuilder\\PCBuilder\\PCBuilder.csproj": {}
+    "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sanda\\Desktop\\PCBuilder\\PCBuilder\\PCBuilder\\PCBuilder.csproj": {
+    "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sanda\\Desktop\\PCBuilder\\PCBuilder\\PCBuilder\\PCBuilder.csproj",
+        "projectUniqueName": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
         "projectName": "PCBuilder",
-        "projectPath": "C:\\Users\\sanda\\Desktop\\PCBuilder\\PCBuilder\\PCBuilder\\PCBuilder.csproj",
+        "projectPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
         "packagesPath": "C:\\Users\\sanda\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sanda\\Desktop\\PCBuilder\\PCBuilder\\PCBuilder\\obj\\",
+        "outputPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,28 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.0-preview.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[10.0.0-preview.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[10.0.0-preview.1, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
