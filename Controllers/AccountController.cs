@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using PCBuilder.Models;
+using PCBuilder.Data;
+using PCBuilder.Services;
 using System.Security.Claims; //Claims това като факти за потребителя(пример името на потребителя, роля) С тях си изграждаме 
 //identity на логнат потребител
 
