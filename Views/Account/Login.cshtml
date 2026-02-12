@@ -1,0 +1,52 @@
+@model PCBuilder.Models.LoginViewModel
+@{
+    ViewData["Titel"] = "Login";
+
+    <h2>Login</h2>
+
+    <form method="post">
+        <div>
+            <label>Username</label><br />
+            <input asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+        </div>
+    
+        <div>
+            <label>Password</label><br />
+            <div style="position: relative; display: inline-block;">
+                <input asp-for="Password" type="password" id="passwordInput" />
+                <button type="button" onclick="togglePassword()" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer;">
+                    👁️
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function togglePassword() {
+                const passwordInput = document.getElementById('passwordInput');
+                const button = event.target;
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    button.textContent = '🙈';
+                } else {
+                    passwordInput.type = 'password';
+                    button.textContent = '👁️';
+                }
+            }
+        </script>
+
+        <div style"color:red">
+            @Html.ValidationSummary()
+        </div>
+
+        <button type="submit">Login</button>
+
+    </form>
+
+    <p>
+        No account? <a href="/Account/Register">Register</a>
+    </p>
+
+    
+}
