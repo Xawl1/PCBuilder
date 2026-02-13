@@ -15,7 +15,7 @@
                 <input type="text" name="buildName" class="form-control" placeholder="Build Name (optional)" />
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-success">Create Build</button>
+                <button type="submit" class="btn btn-primary">Create Build</button>
             </div>
         </form>
     </div>
@@ -30,56 +30,36 @@
 }
 else
 {
-    <div class="row">
+    <div class="builds-grid">
         @foreach (var build in Model)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">@build.BuildName</h5>
-                        <p class="card-text">
-                            <strong>Created:</strong> @build.CreatedAt.ToString("MMM dd, yyyy")<br />
-                            <strong>Items:</strong> @build.BuildItems.Sum(i => i.Quantity)<br />
-                            <strong>Total:</strong> $@build.BuildItems.Sum(i => i.Quantity * i.Product.Price).ToString("0.00")
-                        </p>
-                        <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
-                        <form asp-action="Delete" asp-route-id="@build.Id" method="post" class="d-inline"
-                              onsubmit="return confirm('Delete this build?');">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-}
-@foreach (var build in Model)
-{
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 @(Context.Session.GetInt32("ActiveBuildId") == build.Id ? "border-success border-3" : "")">
-            <div class="card-body">
-                <h5 class="card-title">@build.BuildName</h5>
+            <div class="build-card @(Context.Session.GetInt32("ActiveBuildId") == build.Id ? "border-success" : "")">
+                <h5>@build.BuildName</h5>
+                
                 @if (Context.Session.GetInt32("ActiveBuildId") == build.Id)
                 {
-                    <span class="badge bg-success mb-2">Active Build</span>
+                    <span class="badge bg-success">Active Build</span>
                 }
-                <p class="card-text">
+                
+                <p>
                     <strong>Created:</strong> @build.CreatedAt.ToString("MMM dd, yyyy")<br />
                     <strong>Items:</strong> @build.BuildItems.Sum(i => i.Quantity)<br />
                     <strong>Total:</strong> $@build.BuildItems.Sum(i => i.Quantity * i.Product.Price).ToString("0.00")
                 </p>
-                <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
                 
-                <!-- Set as active button -->
-                <form asp-action="SetActiveBuild" asp-route-id="@build.Id" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-outline-success">Set Active</button>
-                </form>
-                
-                <form asp-action="Delete" asp-route-id="@build.Id" method="post" class="d-inline mt-2"
-                      onsubmit="return confirm('Delete this build?');">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="btn-group">
+                    <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
+                    
+                    <form asp-action="SetActiveBuild" asp-route-id="@build.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-primary">Set Active</button>
+                    </form>
+                    
+                    <form asp-action="Delete" asp-route-id="@build.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Delete this build?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        }
     </div>
 }

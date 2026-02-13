@@ -1,39 +1,35 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PCBuilder</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PCBuilder.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PCBuilder</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             
                 <div class="navbar-collapse collapse">
-                    <!-- Left side - Main navigation -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Products" asp-action="Index">Products</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
                     </ul>
                 
-                    <!-- Right side - User stuff -->
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -42,32 +38,32 @@
                             @if (activeBuildId.HasValue)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Build" asp-action="Details" asp-route-id="@activeBuildId">
+                                    <a class="nav-link" asp-controller="Build" asp-action="Details" asp-route-id="@activeBuildId">
                                         Current Build
                                     </a>
                                 </li>
                             }
                         
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Build" asp-action="Index">My Builds</a>
+                                <a class="nav-link" asp-controller="Build" asp-action="Index">My Builds</a>
                             </li>
                         
                             <li class="nav-item">
-                                <span class="nav-link text-dark">Hello @User.Identity.Name!</span>
+                                <span class="nav-link">Hello @User.Identity.Name!</span>
                             </li>
                             <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -75,17 +71,20 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- MAIN - ТУК Е KEY-ТА -->
+    <main>
         <div class="container">
-            &copy; 2026 - PCBuilder - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2026 - PCBuilder - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

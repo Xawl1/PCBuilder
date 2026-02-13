@@ -112,7 +112,6 @@ C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\rjsmcshtml.
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\scopedcss\bundle\PCBuilder.styles.css
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\scopedcss\projectbundle\PCBuilder.bundle.scp.css
-C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\9jzrwxb6sv-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\iqqq7k266n-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\iu05hvhoki-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\o4gihaik1j-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -188,3 +187,4 @@ C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\refint\PCBu
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.pdb
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.genruntimeconfig.cache
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\ref\PCBuilder.dll
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\9jzrwxb6sv-{0}-el2ein0423-el2ein0423.gz
