@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QzmvVlvEOqA=",
+  "dgSpecHash": "tL9TeIuMsEw=",
   "success": true,
   "projectFilePath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
   "expectedPackageFiles": [
@@ -15,12 +15,13 @@
     "C:\\Users\\sanda\\.nuget\\packages\\microsoft.codeanalysis.csharp.workspaces\\4.8.0\\microsoft.codeanalysis.csharp.workspaces.4.8.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\microsoft.codeanalysis.workspaces.common\\4.8.0\\microsoft.codeanalysis.workspaces.common.4.8.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\microsoft.codeanalysis.workspaces.msbuild\\4.8.0\\microsoft.codeanalysis.workspaces.msbuild.4.8.0.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.0-preview.1.25081.1\\microsoft.entityframeworkcore.10.0.0-preview.1.25081.1.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.0-preview.1.25081.1\\microsoft.entityframeworkcore.abstractions.10.0.0-preview.1.25081.1.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.design\\10.0.0-preview.1.25081.1\\microsoft.entityframeworkcore.design.10.0.0-preview.1.25081.1.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.0-preview.1.25081.1\\microsoft.entityframeworkcore.relational.10.0.0-preview.1.25081.1.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.0-preview.1.25081.1\\microsoft.entityframeworkcore.tools.10.0.0-preview.1.25081.1.nupkg.sha512",
-    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.0-preview.1.25080.5\\microsoft.extensions.dependencymodel.10.0.0-preview.1.25080.5.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.0\\microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.0\\microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.0\\microsoft.entityframeworkcore.analyzers.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.design\\9.0.0\\microsoft.entityframeworkcore.design.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.0\\microsoft.entityframeworkcore.relational.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\9.0.0\\microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512",
+    "C:\\Users\\sanda\\.nuget\\packages\\microsoft.extensions.dependencymodel\\9.0.0\\microsoft.extensions.dependencymodel.9.0.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\9.0.0\\pomelo.entityframeworkcore.mysql.9.0.0.nupkg.sha512",
@@ -32,54 +33,5 @@
     "C:\\Users\\sanda\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
     "C:\\Users\\sanda\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "PCBuilder depends on Microsoft.EntityFrameworkCore (>= 10.0.0-preview.1) but Microsoft.EntityFrameworkCore 10.0.0-preview.1 was not found. Microsoft.EntityFrameworkCore 10.0.0-preview.1.25081.1 was resolved instead.",
-      "projectPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "libraryId": "Microsoft.EntityFrameworkCore",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "PCBuilder depends on Microsoft.EntityFrameworkCore.Relational (>= 10.0.0-preview.1) but Microsoft.EntityFrameworkCore.Relational 10.0.0-preview.1 was not found. Microsoft.EntityFrameworkCore.Relational 10.0.0-preview.1.25081.1 was resolved instead.",
-      "projectPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "libraryId": "Microsoft.EntityFrameworkCore.Relational",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "PCBuilder depends on Microsoft.EntityFrameworkCore.Tools (>= 10.0.0-preview.1) but Microsoft.EntityFrameworkCore.Tools 10.0.0-preview.1 was not found. Microsoft.EntityFrameworkCore.Tools 10.0.0-preview.1.25081.1 was resolved instead.",
-      "projectPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "libraryId": "Microsoft.EntityFrameworkCore.Tools",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "message": "Detected package version outside of dependency constraint: Pomelo.EntityFrameworkCore.MySql 9.0.0 requires Microsoft.EntityFrameworkCore.Relational (>= 9.0.0 && <= 9.0.999) but version Microsoft.EntityFrameworkCore.Relational 10.0.0-preview.1.25081.1 was resolved.",
-      "projectPath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\sanda\\OneDrive\\Documents\\GitHub\\PCBuilder\\PCBuilder.csproj",
-      "libraryId": "Microsoft.EntityFrameworkCore.Relational",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }

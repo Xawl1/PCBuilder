@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PCBuilder.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>PC Parts</h1>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Brand @product.ModelName</h5>
+                    <p class="card-text">Category: @product.Category?.CategoryName</p>
+                    <p class="card-text">Price: $@product.Price</p>
+                    <p class="card-text">Tier: @product.Tier</p>
+                    <a href="#" class="btn btn-primary">Add to Build</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
