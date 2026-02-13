@@ -34,12 +34,12 @@
 <!-- Category Filter Buttons -->
 <div class="mb-3">
     <strong>Categories:</strong>
-    <a asp-action="Index" asp-route-categoryId="" asp-route-tier="@ViewBag.SelectedTier"
+    <a asp-action="Index" asp-route-categoryId="" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand"
        class="btn @(ViewBag.SelectedCategory == null ? "btn-primary" : "btn-outline-primary") btn-sm">All</a>
     
     @foreach (var category in ViewBag.Categories)
     {
-        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-tier="@ViewBag.SelectedTier"
+        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand"
                class="btn @(ViewBag.SelectedCategory == category.Id ? "btn-primary" : "btn-outline-primary") btn-sm">
             @category.CategoryName
         </a>
@@ -47,16 +47,42 @@
 </div>
 
 <!-- Tier Filter Buttons -->
-<div class="mb-4">
+<div class="mb-3">
     <strong>Tiers:</strong>
-    <a asp-action="Index" asp-route-tier="" asp-route-categoryId="@ViewBag.SelectedCategory"
+    <a asp-action="Index" asp-route-tier="" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
        class="btn @(ViewBag.SelectedTier == null ? "btn-secondary" : "btn-outline-secondary") btn-sm">All</a>
-    <a asp-action="Index" asp-route-tier="1" asp-route-categoryId="@ViewBag.SelectedCategory"
+    <a asp-action="Index" asp-route-tier="1" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
        class="btn @(ViewBag.SelectedTier == 1 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 1 (Budget)</a>
-    <a asp-action="Index" asp-route-tier="2" asp-route-categoryId="@ViewBag.SelectedCategory"
+    <a asp-action="Index" asp-route-tier="2" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
        class="btn @(ViewBag.SelectedTier == 2 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 2 (Mid-Range)</a>
-    <a asp-action="Index" asp-route-tier="3" asp-route-categoryId="@ViewBag.SelectedCategory"
+    <a asp-action="Index" asp-route-tier="3" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
        class="btn @(ViewBag.SelectedTier == 3 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 3 (High-End)</a>
+</div>
+
+<!-- Cleaner version with label and dropdown on same line -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <label class="fw-bold me-2">Filter by Brand:</label>
+        <select class="form-select form-select-sm d-inline-block w-auto"
+                onchange="window.location.href = '@Url.Action("Index")?brand=' + this.value +
+            '&categoryId=@ViewBag.SelectedCategory&tier=@ViewBag.SelectedTier'">
+            
+            <option value="">All Brands (@ViewBag.TotalProducts)</option>
+            
+            @foreach (var brandItem in ViewBag.Brands)
+            {
+                <option value="@brandItem.Brand" selected="@(ViewBag.SelectedBrand == brandItem.Brand ? "selected" : null)">
+                    @brandItem.Brand (@brandItem.Count)
+                </option>
+            }
+        </select>
+        
+        @if (!string.IsNullOrEmpty(ViewBag.SelectedBrand))
+        {
+            <a asp-action="Index" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-tier="@ViewBag.SelectedTier"
+               class="btn btn-sm btn-outline-danger ms-3">✕ Clear</a>
+        }
+    </div>
 </div>
 
 <!-- Products Grid -->

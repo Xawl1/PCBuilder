@@ -16,7 +16,7 @@ namespace PCBuilder.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? categoryId, int? tier)
+        public async Task<IActionResult> Index(int? categoryId, int? tier, string brand)
         {
             var productsQuery = _context.Products
                 .Include(p => p.Category)
@@ -34,12 +34,33 @@ namespace PCBuilder.Controllers
                 productsQuery = productsQuery.Where(p => p.Tier == tier.Value);
             }
 
+            // Filter by brand if selected
+            if (!string.IsNullOrEmpty(brand))
+            {
+                productsQuery = productsQuery.Where(p => p.Brand == brand);
+            }
+
             var products = await productsQuery.ToListAsync();
 
-            // Get all categories for the filter menu
+            // Get all categories
             ViewBag.Categories = await _context.Categories.ToListAsync();
+
+            // Get all unique brands WITH COUNTS
+            var brandCounts = await _context.Products
+                .GroupBy(p => p.Brand)
+                .Select(g => new { Brand = g.Key, Count = g.Count() })
+                .OrderBy(b => b.Brand)
+                .ToListAsync();
+
+            // Get TOTAL product count
+            var totalProducts = await _context.Products.CountAsync();
+
+            ViewBag.Brands = brandCounts;
+            ViewBag.TotalProducts = totalProducts;  // ← ADD THIS
+
             ViewBag.SelectedCategory = categoryId;
             ViewBag.SelectedTier = tier;
+            ViewBag.SelectedBrand = brand;
 
             return View(products);
         }
