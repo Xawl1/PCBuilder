@@ -17,5 +17,6 @@ namespace PCBuilder.Models
         public string Role { get; set; } = "User";
 
         public ICollection<UserBuild> UserBuilds { get; set; } = new List<UserBuild>();
+        public ICollection<Build> Builds { get; set; } = new List<Build>();
     }
 }

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PCBuilder.Models.Build>
+
+@{
+    ViewData["Title"] = "My PC Builds";
+}
+
+<h1>My PC Builds</h1>
+
+<!-- Create new build form -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Create New Build</h5>
+        <form asp-action="Create" method="post" class="row g-3">
+            <div class="col-auto">
+                <input type="text" name="buildName" class="form-control" placeholder="Build Name (optional)" />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-success">Create Build</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- List of builds -->
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        You don't have any builds yet. Start by adding products to a build!
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var build in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@build.BuildName</h5>
+                        <p class="card-text">
+                            <strong>Created:</strong> @build.CreatedAt.ToString("MMM dd, yyyy")<br />
+                            <strong>Items:</strong> @build.BuildItems.Sum(i => i.Quantity)<br />
+                            <strong>Total:</strong> $@build.BuildItems.Sum(i => i.Quantity * i.Product.Price).ToString("0.00")
+                        </p>
+                        <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
+                        <form asp-action="Delete" asp-route-id="@build.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Delete this build?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+@foreach (var build in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 @(Context.Session.GetInt32("ActiveBuildId") == build.Id ? "border-success border-3" : "")">
+            <div class="card-body">
+                <h5 class="card-title">@build.BuildName</h5>
+                @if (Context.Session.GetInt32("ActiveBuildId") == build.Id)
+                {
+                    <span class="badge bg-success mb-2">Active Build</span>
+                }
+                <p class="card-text">
+                    <strong>Created:</strong> @build.CreatedAt.ToString("MMM dd, yyyy")<br />
+                    <strong>Items:</strong> @build.BuildItems.Sum(i => i.Quantity)<br />
+                    <strong>Total:</strong> $@build.BuildItems.Sum(i => i.Quantity * i.Product.Price).ToString("0.00")
+                </p>
+                <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
+                
+                <!-- Set as active button -->
+                <form asp-action="SetActiveBuild" asp-route-id="@build.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-success">Set Active</button>
+                </form>
+                
+                <form asp-action="Delete" asp-route-id="@build.Id" method="post" class="d-inline mt-2"
+                      onsubmit="return confirm('Delete this build?');">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}

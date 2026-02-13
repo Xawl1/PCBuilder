@@ -32,6 +32,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(30); // Keep build selected for 30 days
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build(); //създава самото приложение на база на това което имаме по дефоут при създаване на проекта
 
 
@@ -50,6 +59,7 @@ app.UseHttpsRedirection();  //-> Ако някой отвори сайта http:
 app.UseStaticFiles(); // за да може да ни зареждат файловете които не са динамично генерирани(класовете които ползваме)
 app.UseRouting(); // приложението ни ще се ориентира с този ред и ще разбира към кой url и към controller да ти отиде
 
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization(); // това ни трябва за логин на един на един потребител и да може работин 
 

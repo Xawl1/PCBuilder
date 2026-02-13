@@ -13,6 +13,8 @@ namespace PCBuilder.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserBuild> UserBuilds { get; set; }
+        public DbSet<Build> Builds { get; set; }
+        public DbSet<BuildItem> BuildItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,24 @@ namespace PCBuilder.Data
                 .HasOne(ub => ub.Product)
                 .WithMany(p => p.UserBuilds)
                 .HasForeignKey(ub => ub.ProductId);
+
+            modelBuilder.Entity<Build>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Builds)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BuildItem>()
+                .HasOne(bi => bi.Build)
+                .WithMany(b => b.BuildItems)
+                .HasForeignKey(bi => bi.BuildId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BuildItem>()
+                .HasOne(bi => bi.Product)
+                .WithMany()
+                .HasForeignKey(bi => bi.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Set table names to match your SQL
             modelBuilder.Entity<User>().ToTable("users");
