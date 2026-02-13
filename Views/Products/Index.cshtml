@@ -1,24 +1,95 @@
 ﻿@model IEnumerable<PCBuilder.Models.Product>
+@using System.IO
 
 @{
     ViewData["Title"] = "Products";
+    
+    string GetBrandImage(string brand)
+    {
+        string brandLower = brand?.ToLower() ?? "";
+        
+        return brandLower switch
+        {
+            "intel" => "/images/brands/intel.png",
+            "amd" => "/images/brands/amd.png",
+            "nvidia" => "/images/brands/nvidia.png",
+            "corsair" => "/images/brands/corsair.png",
+            "msi" => "/images/brands/msi.png",
+            "asus" => "/images/brands/asus.png",
+            "gigabyte" => "/images/brands/gigabyte.png",
+            "evga" => "/images/brands/evga.png",
+            "kingston" => "/images/brands/kingston.png",
+            "samsung" => "/images/brands/samsung.png",
+            "seagate" => "/images/brands/seagate.png",
+            "wd" => "/images/brands/wd.png",
+            "western digital" => "/images/brands/wd.png",
+            "crucial" => "/images/brands/crucial.png",
+            _ => "/images/brands/default.png"
+        };
+    }
 }
 
 <h1>PC Parts</h1>
 
+<!-- Category Filter Buttons -->
+<div class="mb-3">
+    <strong>Categories:</strong>
+    <a asp-action="Index" asp-route-categoryId="" asp-route-tier="@ViewBag.SelectedTier"
+       class="btn @(ViewBag.SelectedCategory == null ? "btn-primary" : "btn-outline-primary") btn-sm">All</a>
+    
+    @foreach (var category in ViewBag.Categories)
+    {
+        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-tier="@ViewBag.SelectedTier"
+               class="btn @(ViewBag.SelectedCategory == category.Id ? "btn-primary" : "btn-outline-primary") btn-sm">
+            @category.CategoryName
+        </a>
+    }
+</div>
+
+<!-- Tier Filter Buttons -->
+<div class="mb-4">
+    <strong>Tiers:</strong>
+    <a asp-action="Index" asp-route-tier="" asp-route-categoryId="@ViewBag.SelectedCategory"
+       class="btn @(ViewBag.SelectedTier == null ? "btn-secondary" : "btn-outline-secondary") btn-sm">All</a>
+    <a asp-action="Index" asp-route-tier="1" asp-route-categoryId="@ViewBag.SelectedCategory"
+       class="btn @(ViewBag.SelectedTier == 1 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 1 (Budget)</a>
+    <a asp-action="Index" asp-route-tier="2" asp-route-categoryId="@ViewBag.SelectedCategory"
+       class="btn @(ViewBag.SelectedTier == 2 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 2 (Mid-Range)</a>
+    <a asp-action="Index" asp-route-tier="3" asp-route-categoryId="@ViewBag.SelectedCategory"
+       class="btn @(ViewBag.SelectedTier == 3 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 3 (High-End)</a>
+</div>
+
+<!-- Products Grid -->
 <div class="row">
     @foreach (var product in Model)
     {
         <div class="col-md-3 mb-4">
-            <div class="card">
+            <div class="card h-100">
+                <!-- Brand Image -->
+                <div class="text-center p-3" style="height: 120px; display: flex; align-items: center; justify-content: center;">
+                    <img src="@GetBrandImage(product.Brand)"
+                         alt="@product.Brand"
+                         style="max-height: 80px; max-width: 100%; object-fit: contain;"
+                         onerror="this.onerror=null; this.src='/images/brands/default.png';">
+                </div>
+                
                 <div class="card-body">
                     <h5 class="card-title">@product.Brand @product.ModelName</h5>
-                    <p class="card-text">Category: @product.Category?.CategoryName</p>
-                    <p class="card-text">Price: $@product.Price</p>
-                    <p class="card-text">Tier: @product.Tier</p>
-                    <a href="#" class="btn btn-primary">Add to Build</a>
+                    <h6 class="card-subtitle mb-2 text-muted">@product.Category?.CategoryName</h6>
+                    <p class="card-text">
+                        <strong>Price:</strong> $@product.Price.ToString("0.00")<br />
+                        <strong>Tier:</strong> @product.Tier/3
+                    </p>
+                    <a href="#" class="btn btn-primary w-100">Add to Build</a>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No products found with these filters.
+    </div>
+}
