@@ -27,6 +27,7 @@
             _ => "/images/brands/default.png"
         };
     }
+    
 }
 
 <h1>PC Parts</h1>
@@ -34,12 +35,12 @@
 <!-- Category Filter Buttons -->
 <div class="mb-3">
     <strong>Categories:</strong>
-    <a asp-action="Index" asp-route-categoryId="" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand"
+    <a asp-action="Index" asp-route-categoryId="" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
        class="btn @(ViewBag.SelectedCategory == null ? "btn-primary" : "btn-outline-primary") btn-sm">All</a>
     
     @foreach (var category in ViewBag.Categories)
     {
-        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand"
+        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-tier="@ViewBag.SelectedTier" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
                class="btn @(ViewBag.SelectedCategory == category.Id ? "btn-primary" : "btn-outline-primary") btn-sm">
             @category.CategoryName
         </a>
@@ -49,40 +50,72 @@
 <!-- Tier Filter Buttons -->
 <div class="mb-3">
     <strong>Tiers:</strong>
-    <a asp-action="Index" asp-route-tier="" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
+    <a asp-action="Index" asp-route-tier="" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
        class="btn @(ViewBag.SelectedTier == null ? "btn-secondary" : "btn-outline-secondary") btn-sm">All</a>
-    <a asp-action="Index" asp-route-tier="1" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
+    <a asp-action="Index" asp-route-tier="1" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
        class="btn @(ViewBag.SelectedTier == 1 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 1 (Budget)</a>
-    <a asp-action="Index" asp-route-tier="2" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
+    <a asp-action="Index" asp-route-tier="2" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
        class="btn @(ViewBag.SelectedTier == 2 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 2 (Mid-Range)</a>
-    <a asp-action="Index" asp-route-tier="3" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand"
+    <a asp-action="Index" asp-route-tier="3" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-brand="@ViewBag.SelectedBrand" asp-route-sortOrder="@ViewBag.CurrentSort"
        class="btn @(ViewBag.SelectedTier == 3 ? "btn-secondary" : "btn-outline-secondary") btn-sm">Tier 3 (High-End)</a>
 </div>
 
-<!-- Cleaner version with label and dropdown on same line -->
-<div class="row mb-4">
-    <div class="col-md-12">
-        <label class="fw-bold me-2">Filter by Brand:</label>
-        <select class="form-select form-select-sm d-inline-block w-auto"
-                onchange="window.location.href = '@Url.Action("Index")?brand=' + this.value +
-            '&categoryId=@ViewBag.SelectedCategory&tier=@ViewBag.SelectedTier'">
-            
-            <option value="">All Brands (@ViewBag.TotalProducts)</option>
-            
-            @foreach (var brandItem in ViewBag.Brands)
-            {
-                <option value="@brandItem.Brand" selected="@(ViewBag.SelectedBrand == brandItem.Brand ? "selected" : null)">
-                    @brandItem.Brand (@brandItem.Count)
-                </option>
-            }
-        </select>
+<!-- Brand Filter Dropdown -->
+<div class="mb-3 d-flex align-items-center">
+    <strong class="me-2">Brand:</strong>
+    <select class="form-select form-select-sm w-auto"
+            onchange="window.location.href = '@Url.Action("Index")?brand=' + this.value +
+        '&categoryId=@ViewBag.SelectedCategory&tier=@ViewBag.SelectedTier&sortOrder=@ViewBag.CurrentSort'">
         
-        @if (!string.IsNullOrEmpty(ViewBag.SelectedBrand))
+        <option value="">All Brands (@ViewBag.TotalProducts)</option>
+        
+        @foreach (var brandItem in ViewBag.Brands)
         {
-            <a asp-action="Index" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-tier="@ViewBag.SelectedTier"
-               class="btn btn-sm btn-outline-danger ms-3">✕ Clear</a>
+            <option value="@brandItem.Brand" selected="@(ViewBag.SelectedBrand == brandItem.Brand ? "selected" : null)">
+                @brandItem.Brand (@brandItem.Count)
+            </option>
         }
-    </div>
+    </select>
+    
+    @if (!string.IsNullOrEmpty(ViewBag.SelectedBrand))
+    {
+        <a asp-action="Index" asp-route-categoryId="@ViewBag.SelectedCategory" asp-route-tier="@ViewBag.SelectedTier" asp-route-sortOrder="@ViewBag.CurrentSort"
+           class="btn btn-sm btn-outline-danger ms-3">Clear Brand</a>
+    }
+</div>
+
+<!-- Sort Options - Single Toggle Button -->
+<div class="mb-3 d-flex align-items-center">
+    <strong class="me-2">Sort by:</strong>
+    
+    @{
+        string nextSort = ViewBag.CurrentSort == "price_asc" ? "price_desc" : "price_asc";
+        string buttonText = ViewBag.CurrentSort == "price_desc" ? "Price: High to Low ↓" : "Price: Low to High ↑";
+    }
+    
+    <a asp-action="Index" asp-route-sortOrder="@nextSort"
+           asp-route-categoryId="@ViewBag.SelectedCategory"
+           asp-route-tier="@ViewBag.SelectedTier"
+           asp-route-brand="@ViewBag.SelectedBrand"
+           asp-route-page="1"
+           class="btn btn-info btn-sm">
+        @buttonText
+    </a>
+    
+    @if (!string.IsNullOrEmpty(ViewBag.CurrentSort))
+    {
+        <a asp-action="Index" asp-route-sortOrder=""
+           asp-route-categoryId="@ViewBag.SelectedCategory"
+           asp-route-tier="@ViewBag.SelectedTier"
+           asp-route-brand="@ViewBag.SelectedBrand"
+           asp-route-page="1"
+           class="btn btn-sm btn-outline-secondary ms-2">Clear Sort</a>
+    }
+</div>
+
+<!-- Showing X of Y products -->
+<div class="mb-2 text-muted">
+    Showing @Model.Count() of @ViewBag.TotalItems products
 </div>
 
 <!-- Products Grid -->
@@ -112,6 +145,44 @@
         </div>
     }
 </div>
+
+<!-- Pagination -->
+@if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Index"
+                   asp-route-page="@(ViewBag.CurrentPage - 1)"
+                   asp-route-categoryId="@ViewBag.SelectedCategory"
+                   asp-route-tier="@ViewBag.SelectedTier"
+                   asp-route-brand="@ViewBag.SelectedBrand"
+                   asp-route-sortOrder="@ViewBag.CurrentSort">Previous</a>
+            </li>
+            
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-page="@i"
+                       asp-route-categoryId="@ViewBag.SelectedCategory"
+                       asp-route-tier="@ViewBag.SelectedTier"
+                       asp-route-brand="@ViewBag.SelectedBrand"
+                       asp-route-sortOrder="@ViewBag.CurrentSort">@i</a>
+                </li>
+            }
+            
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="Index"
+                   asp-route-page="@(ViewBag.CurrentPage + 1)"
+                   asp-route-categoryId="@ViewBag.SelectedCategory"
+                   asp-route-tier="@ViewBag.SelectedTier"
+                   asp-route-brand="@ViewBag.SelectedBrand"
+                   asp-route-sortOrder="@ViewBag.CurrentSort">Next</a>
+            </li>
+        </ul>
+    </nav>
+}
 
 @if (!Model.Any())
 {
