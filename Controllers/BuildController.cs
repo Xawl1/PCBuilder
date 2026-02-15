@@ -71,10 +71,14 @@ namespace PCBuilder.Controllers
 
         // Add product to build
         [HttpPost]
-        [HttpPost]
         public async Task<IActionResult> AddToBuild(int productId, int? buildId)
         {
             var userId = GetCurrentUserId();
+
+            // Вземи продукта, който се опитваме да добавим
+            var newProduct = await _context.Products.FindAsync(productId);
+            if (newProduct == null)
+                return NotFound();
 
             // Try to get active build from session
             int? activeBuildId = buildId ?? HttpContext.Session.GetInt32("ActiveBuildId");
@@ -83,14 +87,13 @@ namespace PCBuilder.Controllers
 
             if (activeBuildId.HasValue)
             {
-                // Use existing build
                 build = await _context.Builds
                     .Include(b => b.BuildItems)
+                    .ThenInclude(bi => bi.Product)
                     .FirstOrDefaultAsync(b => b.Id == activeBuildId && b.UserId == userId);
 
                 if (build == null)
                 {
-                    // Build doesn't exist or doesn't belong to user, create new
                     build = new Build
                     {
                         UserId = userId,
@@ -99,14 +102,11 @@ namespace PCBuilder.Controllers
                     };
                     _context.Builds.Add(build);
                     await _context.SaveChangesAsync();
-
-                    // Set as active
                     HttpContext.Session.SetInt32("ActiveBuildId", build.Id);
                 }
             }
             else
             {
-                // No active build, check if user has any builds
                 var existingBuilds = await _context.Builds
                     .Where(b => b.UserId == userId)
                     .OrderByDescending(b => b.UpdatedAt ?? b.CreatedAt)
@@ -114,13 +114,11 @@ namespace PCBuilder.Controllers
 
                 if (existingBuilds.Any())
                 {
-                    // Use the most recent build
                     build = existingBuilds.First();
                     HttpContext.Session.SetInt32("ActiveBuildId", build.Id);
                 }
                 else
                 {
-                    // Create new build
                     build = new Build
                     {
                         UserId = userId,
@@ -129,19 +127,38 @@ namespace PCBuilder.Controllers
                     };
                     _context.Builds.Add(build);
                     await _context.SaveChangesAsync();
-
-                    // Set as active
                     HttpContext.Session.SetInt32("ActiveBuildId", build.Id);
                 }
             }
+            // Tier 2 works with everything, but Tier 1 and Tier 3 cannot mix
+            if (build.BuildItems.Any())
+            {
+                var existingTiers = build.BuildItems.Select(bi => bi.Product.Tier).Distinct().ToList();
+                if (existingTiers.Contains(1) && newProduct.Tier == 3)
+                {
+                    TempData["Error"] = $"❌ Cannot add Tier 3 part to a Tier 1 build!";
+                    return RedirectToAction("Index", "Products");
+                }
+                if (existingTiers.Contains(3) && newProduct.Tier == 1)
+                {
+                    TempData["Error"] = $"❌ Cannot add Tier 1 part to a Tier 3 build!";
+                    return RedirectToAction("Index", "Products");
+                }
+                if (existingTiers.Contains(1) && existingTiers.Contains(3))
+                {
+                    TempData["Error"] = $"❌ Build contains both Tier 1 and Tier 3 parts! This is not allowed.";
+                    return RedirectToAction("Index", "Products");
+                }
+            }
 
-            // Add product to build (same logic)
+            // Add product to build
             var existingItem = build.BuildItems
                 .FirstOrDefault(bi => bi.ProductId == productId);
 
             if (existingItem != null)
             {
                 existingItem.Quantity++;
+                TempData["Message"] = $"Added another {newProduct.Brand} {newProduct.ModelName} to your build!";
             }
             else
             {
@@ -150,12 +167,12 @@ namespace PCBuilder.Controllers
                     ProductId = productId,
                     Quantity = 1
                 });
+                TempData["Message"] = $"✅ Added {newProduct.Brand} {newProduct.ModelName} to your build!";
             }
 
             build.UpdatedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
-            TempData["Message"] = "Product added to your build!";
             return RedirectToAction("Index", "Products");
         }
 

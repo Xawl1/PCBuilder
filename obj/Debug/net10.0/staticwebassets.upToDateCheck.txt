@@ -1,10 +1,5 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\images\brands\amd.png
-wwwroot\images\brands\corsair.png
-wwwroot\images\brands\default.png
-wwwroot\images\brands\intel.png
-wwwroot\images\brands\nvidia.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -66,6 +61,11 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\images\brands\intel.png
+wwwroot\images\brands\amd.png
+wwwroot\images\brands\nvidia.png
+wwwroot\images\brands\corsair.png
+wwwroot\images\brands\default.png
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\css\site.css
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\favicon.ico
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\js\site.js

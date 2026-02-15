@@ -32,6 +32,22 @@
 
 <h1>PC Parts</h1>
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <!-- Category Filter Buttons -->
 <div class="mb-3">
     <strong>Categories:</strong>
@@ -83,7 +99,6 @@
            class="btn btn-sm btn-outline-danger ms-3">Clear Brand</a>
     }
 </div>
-
 <!-- Sort Options - Single Toggle Button -->
 <div class="mb-3 d-flex align-items-center">
     <strong class="me-2">Sort by:</strong>
@@ -112,13 +127,9 @@
            class="btn btn-sm btn-outline-secondary ms-2">Clear Sort</a>
     }
 </div>
-
-<!-- Showing X of Y products -->
 <div class="mb-2 text-muted">
     Showing @Model.Count() of @ViewBag.TotalItems products
 </div>
-
-<!-- Products Grid -->
 <!-- Products Grid -->
 <div class="row">
     @foreach (var product in Model)
@@ -147,6 +158,21 @@
                             <i class="bi bi-cart-plus"></i> Add to Build
                         </button>
                     </form>
+                </div>
+                <!-- Tier badge -->
+                <div class="mb-2">
+                    @if (product.Tier == 1)
+                    {
+                        <span class="badge" style="background: #00ff8844; color: #00ff88; border: 1px solid #00ff88;">Budget Build</span>
+                    }
+                    else if (product.Tier == 2)
+                    {
+                        <span class="badge" style="background: #00f0ff44; color: #00f0ff; border: 1px solid #00f0ff;">Mid-Range</span>
+                    }
+                    else if (product.Tier == 3)
+                    {
+                        <span class="badge" style="background: #ff336644; color: #ff3366; border: 1px solid #ff3366;">High-End</span>
+                    }
                 </div>
             </div>
         </div>
