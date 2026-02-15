@@ -1,3 +1,4 @@
+wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\brands\amd.png
 wwwroot\images\brands\corsair.png
@@ -65,7 +66,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\site.css
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\css\site.css
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\favicon.ico
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\js\site.js
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -127,4 +128,3 @@ C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\lib\jquery\dist\jquer
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\wwwroot\css\site.css
