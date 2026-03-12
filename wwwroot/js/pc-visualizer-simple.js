@@ -87,9 +87,10 @@
         this.renderer.domElement.addEventListener('mousemove', (e) => this.onMouseMove(e));
         this.renderer.domElement.addEventListener('mouseup', () => this.isDragging = false);
         this.renderer.domElement.addEventListener('wheel', (e) => {
-            this.cameraRadius = Math.max(5, Math.min(20, this.cameraRadius + e.deltaY * 0.01));
+            e.preventDefault();
+            this.cameraRadius = Math.max(4, Math.min(22, this.cameraRadius + e.deltaY * 0.05));
             this.updateCameraPosition();
-        });
+        }, { passive: false });
 
         // Tooltip
         this.tooltip = document.createElement('div');
@@ -307,19 +308,19 @@
         // CPU socket on mobo
         const geo = new THREE.BoxGeometry(0.55, 0.55, 0.12);
         const mesh = this.makeMesh(geo, 0x888888, 0.3, 0.2, 0.9);
-        mesh.position.set(0.1, 1.3, -1.22);
+        mesh.position.set(-1, 1.17, -1.22);
         mesh.userData = { name: part ? `${part.brand} ${part.modelName}` : 'CPU', category: 'Processor' };
 
         // CPU cooler
         const coolerGeo = new THREE.BoxGeometry(0.65, 0.8, 0.65);
         const cooler = this.makeMesh(coolerGeo, 0x555566, 0.1, 0.3, 0.7);
-        cooler.position.set(0.1, 1.3, -0.85);
+        cooler.position.set(-1, 1.17, -0.85);
 
         // Fan on cooler
         const fanGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.08, 16);
         const fan = this.makeMesh(fanGeo, 0x222233, 0.05, 0.5, 0.3);
         fan.rotation.x = Math.PI / 2;
-        fan.position.set(0.1, 1.3, -0.48);
+        fan.position.set(-1, 1.17, -0.48);
 
         this.scene.add(mesh);
         this.scene.add(cooler);
@@ -440,11 +441,6 @@
 
     animate() {
         requestAnimationFrame(() => this.animate());
-
-        // Subtle idle camera bob
-        const t = Date.now() * 0.0003;
-        this.camera.position.y += Math.sin(t) * 0.0015;
-
         this.renderer.render(this.scene, this.camera);
     }
 
