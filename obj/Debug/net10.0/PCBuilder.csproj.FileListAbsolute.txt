@@ -188,3 +188,4 @@ C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.p
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\PCBuilder.genruntimeconfig.cache
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\ref\PCBuilder.dll
 C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\9jzrwxb6sv-{0}-vnzuedrl6n-vnzuedrl6n.gz
+C:\Users\sanda\OneDrive\Documents\GitHub\PCBuilder\obj\Debug\net10.0\compressed\y0gyo5ljxk-{0}-9fae5skcha-9fae5skcha.gz

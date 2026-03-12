@@ -67,7 +67,7 @@ app.UseAuthorization(); // това ни трябва за логин на ед�
 //регистрира/мапва всички статични файловр (css, js, избображения) според начина по който сме си натройли проекта 
 app.MapControllerRoute( // дефиницията за route(маршрута) mvc котролерите ни 
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}")
+    pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets(); // свързва ви route, идеята му е правилно да ви работят ресурсите(класовте които правим според конфигурацията)
 
 

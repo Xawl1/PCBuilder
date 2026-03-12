@@ -49,7 +49,9 @@ else
                 
                 <div class="btn-group">
                     <a asp-action="Details" asp-route-id="@build.Id" class="btn btn-primary">View Build</a>
-                    
+                    <a asp-controller="Visualization" asp-action="Index" asp-route-buildId="@build.Id" class="btn btn-info">
+                        <i class="bi bi-camera"></i> Visualize in 3D
+                    </a>
                     <form asp-action="SetActiveBuild" asp-route-id="@build.Id" method="post" class="d-inline">
                         <button type="submit" class="btn btn-outline-primary">Set Active</button>
                     </form>
