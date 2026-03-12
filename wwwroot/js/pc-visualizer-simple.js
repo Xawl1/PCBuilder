@@ -11,6 +11,7 @@
         this.renderer = null;
         this.parts = [];
         this.buildId = null;
+        this.fanGroups = [];
         this.mouse = new THREE.Vector2();
         this.raycaster = new THREE.Raycaster();
         this.hoveredObject = null;
@@ -281,6 +282,68 @@
             this.scene.add(mesh);
             this.parts.push(mesh);
         });
+
+        // Top fans — 2x120mm exhausting upward
+        this.addFan(-0.8, caseH / 2, 0, 'top', 0x00f0ff);
+        this.addFan(0.8, caseH / 2, 0, 'top', 0x00f0ff);
+
+        // Side fans — 3x120mm intake on right side panel
+        this.addFan(caseW / 2, 1.5, 0, 'side', 0x00aaff);
+        this.addFan(caseW / 2, 0.0, 0, 'side', 0x00aaff);
+        this.addFan(caseW / 2, -1.5, 0, 'side', 0x00aaff);
+    }
+
+    addFan(x, y, z, axis, glowColor) {
+        const group = new THREE.Group();
+        group.position.set(x, y, z);
+
+        // Fan frame
+        const frameGeo = new THREE.BoxGeometry(0.95, 0.95, 0.12);
+        const frameMat = new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.5, metalness: 0.7 });
+        const frame = new THREE.Mesh(frameGeo, frameMat);
+        frame.castShadow = true;
+        group.add(frame);
+
+        // Fan hub — cylinder oriented along Z so it faces outward
+        const hubGeo = new THREE.CylinderGeometry(0.1, 0.1, 0.14, 12);
+        const hubMat = new THREE.MeshStandardMaterial({ color: 0x222233, roughness: 0.4, metalness: 0.8 });
+        const hub = new THREE.Mesh(hubGeo, hubMat);
+        hub.rotation.x = Math.PI / 2; // rotate hub 90deg so it aligns with spin axis
+        group.add(hub);
+
+        // Spinner group — blades spin around Z axis (facing outward through the panel)
+        const spinner = new THREE.Group();
+        const bladeMat = new THREE.MeshStandardMaterial({ color: 0x1a1a33, roughness: 0.5, metalness: 0.5 });
+        for (let i = 0; i < 5; i++) {
+            const bladeGeo = new THREE.BoxGeometry(0.28, 0.32, 0.06); // flat in XY plane
+            const blade = new THREE.Mesh(bladeGeo, bladeMat);
+            const angle = (i / 5) * Math.PI * 2;
+            blade.position.set(Math.cos(angle) * 0.22, Math.sin(angle) * 0.22, 0);
+            blade.rotation.z = angle + 0.4;
+            spinner.add(blade);
+        }
+        group.add(spinner); // spinner is children[2]
+
+        // RGB ring
+        const ringGeo = new THREE.TorusGeometry(0.38, 0.03, 8, 32);
+        const ringMat = new THREE.MeshStandardMaterial({
+            color: glowColor,
+            emissive: new THREE.Color(glowColor),
+            emissiveIntensity: 2.5,
+        });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        group.add(ring);
+
+        // Orient group to face the right panel
+        if (axis === 'top') {
+            group.rotation.x = Math.PI / 2;
+        } else if (axis === 'side') {
+            group.rotation.y = Math.PI / 2;
+        }
+
+        this.scene.add(group);
+        this.parts.push(group);
+        this.fanGroups.push(spinner);
     }
 
     addMotherboard(part) {
@@ -305,29 +368,29 @@
     }
 
     addCPU(part) {
-        // CPU socket on mobo
+        // CPU socket on mobo — positioned left of RAM
         const geo = new THREE.BoxGeometry(0.55, 0.55, 0.12);
         const mesh = this.makeMesh(geo, 0x888888, 0.3, 0.2, 0.9);
-        mesh.position.set(-1, 1.17, -1.22);
+        mesh.position.set(-0.9, 1.3, -1.22);
         mesh.userData = { name: part ? `${part.brand} ${part.modelName}` : 'CPU', category: 'Processor' };
 
         // CPU cooler
         const coolerGeo = new THREE.BoxGeometry(0.65, 0.8, 0.65);
         const cooler = this.makeMesh(coolerGeo, 0x555566, 0.1, 0.3, 0.7);
-        cooler.position.set(-1, 1.17, -0.85);
+        cooler.position.set(-0.9, 1.3, -0.85);
 
         // Fan on cooler
         const fanGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.08, 16);
         const fan = this.makeMesh(fanGeo, 0x222233, 0.05, 0.5, 0.3);
         fan.rotation.x = Math.PI / 2;
-        fan.position.set(-1, 1.17, -0.48);
+        fan.position.set(-0.9, 1.3, -0.48);
 
         this.scene.add(mesh);
         this.scene.add(cooler);
         this.scene.add(fan);
         this.parts.push(mesh, cooler, fan);
 
-        if (part) this.addLabel(`${part.brand}`, new THREE.Vector3(0.1, 2.3, -0.6), '#00f0ff');
+        if (part) this.addLabel(`${part.brand}`, new THREE.Vector3(-0.9, 2.3, -0.6), '#00f0ff');
     }
 
     addRAM(part) {
@@ -441,6 +504,14 @@
 
     animate() {
         requestAnimationFrame(() => this.animate());
+
+        // Spin fan blade spinners around Z axis
+        if (this.fanGroups) {
+            this.fanGroups.forEach(spinner => {
+                spinner.rotation.z += 0.08;
+            });
+        }
+
         this.renderer.render(this.scene, this.camera);
     }
 
